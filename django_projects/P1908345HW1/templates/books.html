@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Books</h1>
+<ul>
+    {% for book in library_BookList %}
+    {% if request.user.is_authenticated %}
+        <li><a href="{% url 'book_detail' slug=book.slug pk=book.pk %}">{{book.title}}</a></li>
+    {% else %}
+        <li>{{book.title}}</li>
+    {% endif %}
+    {% empty %}
+    <p>There is no book in our library.</p>
+    {% endfor %}
+</ul>
+{% endblock content %}

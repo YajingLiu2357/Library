@@ -1,0 +1,14 @@
+<!--templates/results.html-->
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{book.title}}</h2>
+<p>Author: {{book.author}}</p>
+<p>Summary: {{book.summary}}</p>
+<p>ISBN: {{book.ISBN}}</p>
+<p>We have the following book copies. (For the status: we have 'm' for 'Maintenance', 'o' for 'On loan', 'a' for 'Available', 'r' for 'Reserved')</p>
+<ul>
+    {% for bookcopy in book.bookcopies_set.all %}
+    <li>ID: {{bookcopy.id}} Status: {{bookcopy.status}}</li>
+    {% endfor %}
+</ul>
+{% endblock content %}

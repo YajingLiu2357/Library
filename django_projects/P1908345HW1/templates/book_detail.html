@@ -1,0 +1,23 @@
+<!--templates/book_detail.html-->
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{book.title}}</h2>
+<p>Author: {{book.author}}</p>
+<p>Summary: {{book.summary}}</p>
+<p>ISBN: {{book.ISBN}}</p>
+<p>We have the following book copies. (For the status: we have 'm' for 'Maintenance', 'o' for 'On loan', 'a' for 'Available', 'r' for 'Reserved')</p>
+<form action="{% url 'status' book.pk %}" method="post">{% csrf_token %}
+    {% for choice in book.bookcopies_set.all %}
+    {% if choice.status != 'a' %}
+    <p>ID: {{choice.id}}    Status: {{choice.status}}</p>
+    {% else %}
+    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+    <label id="choice{{ forloop.counter }}">ID: {{choice.id}}</label>
+    <input type="submit" value="Confirm">
+    <br>
+    {% endif %}
+    {% endfor %}
+
+</form>
+
+{% endblock content %}

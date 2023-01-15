@@ -1,0 +1,22 @@
+<!--templates/search_results.html-->
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8" />
+        <title>Book Search</title>
+    </head>
+    <body>
+        <p>You searched for: <strong>{{ query }}</strong></p>
+        {% if books %}
+        <p>Found {{ books|length }}
+        book{{ books|pluralize }}.</p>
+        <ul>
+            {% for book in books %}
+            <li><a href="{% url 'book_detail' slug=book.slug pk=book.pk %}">{{book.title}}</a></li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <p>No books matched your search criteria.</p>
+        {% endif %}
+    </body>
+</html>
